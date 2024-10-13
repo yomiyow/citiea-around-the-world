@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cities</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+  </head>
+
+  <body>
+    <table class="table table-striped table-dark">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>CountryCode</th>
+          <th>District</th>
+          <th>Population</th>
+        </tr>
+      </thead>
+      <tbody id="citiesTableBody"></tbody>
+    </table>
+  </body>
+
+  <script>
+    const tableBody = document.getElementById('citiesTableBody');
+    fetch('cities.json')
+      .then((response) => response.json())
+      .then((cities) => {
+        cities.forEach((city) => {
+          renderCitiesTable(city);
+        });
+      })
+      .catch((err) => console.error('Error fetching data: ', err));
+
+
+      function renderCitiesTable(city) {
+        const row = tableBody.insertRow();
+        const nameCell = row.insertCell(0);
+        const countryCodeCell = row.insertCell(1);
+        const districtCell = row.insertCell(2);
+        const populationCell = row.insertCell(3);
+
+        nameCell.textContent = city.Name;
+        countryCodeCell.textContent = city.CountryCode;
+        districtCell.textContent = city.District;
+        populationCell.textContent = city.Population;
+      }
+  </script>
+</html>
