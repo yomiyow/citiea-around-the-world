@@ -1,0 +1,5 @@
+# Ignore test session SQL file
+test.session.sql;
+
+# Ignore .vscode directory
+.vscode/
