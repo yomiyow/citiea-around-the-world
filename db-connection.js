@@ -1,6 +1,9 @@
 const mysql = require('mysql');
 const express = require('express');
-const fs = require('fs');
+const app = express();
+const port = 3000;
+
+app.use(express.static('public'));
 
 // Create connection
 const con = mysql.createConnection({
@@ -10,21 +13,30 @@ const con = mysql.createConnection({
   database: 'world'
 });
 
-// Query
-const sql = 'SELECT * FROM city';
-
+// Check if connected
 con.connect((err) => {
   if (err) throw err;
-  console.log('Connected!');
-
-  con.query(sql, (err, result) => {
-    if (err) throw err;
-    const jsonResult = JSON.stringify(result, null, 2);
-    fs.writeFile('cities.json', jsonResult, (err) => {
-      if (err) throw err;
-      console.log('Result saved to cities.json');
-    }); // getting data from database ...
-  });
-
-  console.log('Done!');
+  
+  console.log('Connected successful!');  
 });
+
+// http request
+app.get('/api/cities', (request, response) => {
+  const sql = 'SELECT * FROM city';
+  con.query(sql, (err, result) => {
+    if (err) {
+      response.status(404).send('Errror retrieving data!');
+    } else {
+      response.json(result);
+    }
+  });
+});
+
+// create a get request
+// retrieve data from database
+// save the data to url with endpoint /api/cities
+
+app.listen(port, () => console.log('Listening to port 3000...'));
+
+
+

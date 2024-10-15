@@ -11,8 +11,7 @@
   </head>
 
   <body>
-    
-    <table class="table table-striped table-dark table-hover">
+    <table class="table table-sm table-dark">
       <caption>List of cities</caption>
       <thead>
         <tr>
@@ -28,7 +27,8 @@
 
   <script>
     const tableBody = document.getElementById('citiesTableBody');
-    fetch('cities.json')
+
+    fetch('/api/cities')
       .then((response) => response.json())
       .then((cities) => {
         cities.forEach((city) => {
@@ -36,7 +36,6 @@
         });
       })
       .catch((err) => console.error('Error fetching data: ', err));
-
 
       function renderCitiesTable(city) {
         const row = tableBody.insertRow();

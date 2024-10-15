@@ -1,9 +1,0 @@
-SELECT *
-FROM city
-LIMIT 5;
-SELECT *
-FROM country
-LIMIT 5;
-SELECT *
-FROM countrylanguage
-LIMIT 5;
